@@ -8,11 +8,12 @@ void yyerror(char *message);
 %}
 
 KEYWORD         ("exit"|"go to"|"if"|"then"|"else"|"case"|"endcase"|"while"|"do"|"endwhile"|"repeat"|"until"|"loop"|"forever"|"for"|"endfor"|"input"|"output"|"array"|"node"|"call"|"return"|"stop"|"end"|"procedure"|"exit")
-IDENTIFIER      [a-zA-z]+[0-9,a-z,A-z]*
-LITERAL_str     '{1}[a-zA-z]+'{1}
+IDENTIFIER      [a-zA-Z_]+[0-9a-zA-Z_]*
+/* LITERAL_str     '{1}[a-zA-Z' ]+[0-9]*{1}' */
+LITERAL_str		'[^']*'
 LITERAL_int     [0-9]+
 LITERAL_bool    ("true"|"false")
-SEPARATOR       (","|":"|";"|"|")
+SEPARATOR       (","|":"|";"|"("|")"|"["|"]")
 OPERATOR        ("+"|"-"|"/"|"*"|"^"|"and"|"or"|"not"|"<"|"<="|"=="|"="|"!="|">"|">=")
 
 
@@ -31,7 +32,7 @@ OPERATOR        ("+"|"-"|"/"|"*"|"^"|"and"|"or"|"not"|"<"|"<="|"=="|"="|"!="|">"
 %%
 
 void ret_print(char *token_type){
-    printf("<%s, %s>\n", token_type, yytext);
+    printf("< %s, '%s' >\n", token_type, yytext);
 }
 
 void yyerror(char *message){
@@ -41,6 +42,7 @@ void yyerror(char *message){
 
 int main(int argc, char* argv[])
 {
+	printf("Enter input: ");
 	yyin = fopen(argv[1], "r");
 	yylex();
 	fclose(yyin);
