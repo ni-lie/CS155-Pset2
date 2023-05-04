@@ -1,4 +1,4 @@
-# [CS155] Problem Set 2 Lexical Analyzer using Flex
+# [CS155] Problem Set 2 - Lexical Analyzer using Flex
 A lexical analyzer for the `EASY` language
 
 **To compile and run (using Windows)**
