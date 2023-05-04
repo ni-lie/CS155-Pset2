@@ -7,22 +7,24 @@ void ret_print(char *token_type);
 void yyerror(char *message);
 %}
 
-KEYWORD         ("exit"|"go to"|"if"|"then"|"else"|"case"|"endcase"|"while"|"do"|"endwhile"|"repeat"|"until"|"loop"|"forever"|"for"|"endfor"|"input"|"output"|"array"|"node"|"call"|"return"|"stop"|"end"|"procedure"|"exit")
-IDENTIFIER      [a-zA-Z_]+[0-9a-zA-Z_]*
-/* LITERAL_str     '{1}[a-zA-Z' ]+[0-9]*{1}' */
-LITERAL_str		'[^']*'
-LITERAL_int     [0-9]+
-LITERAL_bool    ("true"|"false")
-SEPARATOR       (","|":"|";"|"("|")"|"["|"]")
-OPERATOR        ("+"|"-"|"/"|"*"|"^"|"and"|"or"|"not"|"<"|"<="|"=="|"="|"!="|">"|">=")
-
+KEYWORD         	("exit"|"go to"|"if"|"then"|"else"|"case"|"endcase"|"while"|"do"|"endwhile"|"repeat"|"until"|"loop"|"forever"|"for"|"endfor"|"input"|"output"|"array"|"node"|"call"|"return"|"stop"|"end"|"procedure"|"exit")
+IDENTIFIER      	[a-zA-Z_]+[0-9a-zA-Z_]*
+LITERAL_str			'[^']*'
+LITERAL_int     	[0-9]+
+LITERAL_bool    	("true"|"false")
+SEPARATOR       	(","|":"|";"|"("|")"|"["|"]")
+ARITH_OPERATOR       ("+"|"-"|"/"|"*"|"^")
+LOGI_OPERATOR        ("and"|"or"|"not")
+REL_OPERATOR         ("<"|"<="|"=="|"="|"!="|">"|">=")
 
 
 %%
 {KEYWORD}            { ret_print("KEYWORD"); }
+{LOGI_OPERATOR}          { ret_print("LOGI_OPERATOR"); }
 {LITERAL_bool}        { ret_print("LITERAL_bool"); }
 {IDENTIFIER}         { ret_print("IDENTIFIER"); }
-{OPERATOR}          { ret_print("OPERATOR"); }
+{ARITH_OPERATOR}          { ret_print("ARITH_OPERATOR"); }
+{REL_OPERATOR}          { ret_print("REL_OPERATOR"); }
 {SEPARATOR}          { ret_print("SEPARATOR"); }
 {LITERAL_str}         { ret_print("LITERAL_str"); }
 {LITERAL_int}        { ret_print("LITERAL_int"); }
